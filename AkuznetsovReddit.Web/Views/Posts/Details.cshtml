@@ -1,0 +1,39 @@
+﻿@model AkuznetsovReddit.Web.Models.PostFullVm
+
+<div>
+
+    <hr />
+    <p>
+        @{
+            if ((Model.IsActive) && (ViewBag.User.RoleId == 2 || ViewBag.User.UserId == Model.UserId))
+            {
+                <a href="/Posts/Delete/@Model.PostId" class="pull-right btn btn-danger" title="Delete post"><i class="glyphicon glyphicon-trash"></i></a>
+                <a href="/Posts/Edit/?topicId=@Model.TopicId&postId=@Model.PostId" class="pull-right btn btn-warning" title="Edit post"><i class="glyphicon glyphicon-edit"></i></a>
+
+            }
+        }
+        <a href="/Posts/Index/@Model.TopicId" class="btn btn-default" title="Back to Posts"><i class="glyphicon glyphicon-arrow-left"></i></a>
+    </p>
+    <hr />
+    @{
+        if (!Model.IsActive)
+        {
+            <h2 class="text-danger text-center">DELETED</h2>
+        }
+    }
+    <div class="well">
+
+        <h2>
+            @Html.DisplayFor(model => model.PostName)
+        </h2>
+
+        <p class="lead">
+            @Html.DisplayFor(model => model.Description)
+        </p>
+
+        <p>
+            Created by: <span class="text-capitalize">@ViewBag.Author.UserName</span> - @Model.CreationDate
+        </p>
+    </div>
+    <a href="/Posts/Index/@Model.TopicId" class="btn btn-default" title="Back to Posts"><i class="glyphicon glyphicon-arrow-left"></i></a>
+</div>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<AkuznetsovReddit.Web.Models.TopicVm>
+
+<div class="jumbotron">
+    <h2 class="text-center">TOPICS</h2>
+</div>
+
+@{if (ViewBag.User.Role.RoleName == "Admin")
+    {
+        <a class="pull-right btn btn-sm btn-info" href="/Topic/create"><i class="glyphicon glyphicon-plus"></i></a>
+        <br />
+        <br />
+    }
+}
+
+<div class="list-group">
+    @foreach (var topic in Model)
+    {
+        <div class="panel panel-default ">
+            <div class="panel-body row">
+                <a href="/posts/index/@topic.TopicId" class="col-lg-4">@topic.TopicName</a>
+                @if (ViewBag.User.Role.RoleName == "Admin")
+                {
+                    if (!topic.IsActive)
+                    {
+                        <p class="text-center text-danger col-lg-4">DELETED</p>
+                    }
+                    else
+                    {
+                        <div class="col-lg-4"></div>
+                    }
+                    <div class="col-lg-4">
+                        @if (!topic.IsActive)
+                        {
+                            <a href="/topic/restore/@topic.TopicId" class="pull-right btn btn-xs btn-success"><i class="glyphicon glyphicon-repeat"></i></a>
+                        }
+                        else
+                        {
+                            <a href="/topic/delete/@topic.TopicId" class="pull-right btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                            <a href="/topic/edit/@topic.TopicId" class="pull-right btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        }
+                        
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

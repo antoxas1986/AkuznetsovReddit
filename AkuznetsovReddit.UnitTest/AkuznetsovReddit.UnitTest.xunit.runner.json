@@ -1,0 +1,7 @@
+﻿{
+  "parallelizeAssembly": false,
+  "parallelizeTestCollections": false,
+  "methodDisplay": "method",
+  "diagnosticMessages": true,
+  "preEnumerateTheories": true
+}

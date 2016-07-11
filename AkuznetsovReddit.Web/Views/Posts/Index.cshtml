@@ -1,0 +1,46 @@
+﻿@model AkuznetsovReddit.Web.Models.TopicWithPostsVm
+
+<div class="jumbotron">
+    <h2 class="text-center">@Model.TopicName</h2>
+</div>
+<a href="/Topic/Index" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left" title="Back to topics"></i></a>
+<a class="pull-right btn btn-sm btn-info" href="/posts/create/@Model.TopicId" title="Create new post"><i class="glyphicon glyphicon-plus"></i></a>
+<br />
+<br />
+<div>@Html.ValidationSummary(true, "", new { @class = "text-danger" })</div>
+<div>
+
+    @foreach (var post in Model.Posts)
+    {
+        if (post.IsActive)
+        {
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a href="/Posts/Details/@post.PostId">@post.PostName</a>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    @post.ShortDescription
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a href="/Posts/Details/@post.PostId">@post.PostName</a>
+                        <a href="/posts/restore/?topicId=@post.TopicId&postId=@post.PostId" class="pull-right btn btn-xs btn-success" title="Restore"><i class="glyphicon glyphicon-repeat"></i></a>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    @post.ShortDescription
+                </div>
+            </div>
+        }
+    }
+</div>
+<div>
+    <a href="/Topic/Index" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left" title="Back to topics"></i></a>
+</div>
